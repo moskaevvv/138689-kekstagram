@@ -1,5 +1,8 @@
 'use strict';
 
+var ENTER_KEY_CODE = 13;
+
+
 
 //1. Показ формы кадрирования
 var uploadFileInput = document.querySelector('#upload-file');
@@ -17,6 +20,7 @@ uploadFileInput.addEventListener('change', uploadSelectImageClose);
 uploadFileInput.addEventListener('change', uploadOverlayOpen);
 
 
+
 //2. Закрытие формы кадрирования
 var uploadFormCancel = document.querySelector('.upload-form-cancel');
 
@@ -31,54 +35,144 @@ uploadFormCancel.addEventListener('click', uploadOverlayClose);
 uploadFormCancel.addEventListener('click', uploadSelectImageOpen);
 
 
-//3. Применение фильтра к изображению
-var filterImagePreview = document.querySelector('.filter-image-preview');
 
-var uploadFilterNone = document.querySelector('#upload-filter-none');
-var uploadFilterChrome = document.querySelector('#upload-filter-chrome');
-var uploadFilterSepia = document.querySelector('#upload-filter-sepia');
-var uploadFilterMarvin = document.querySelector('#upload-filter-marvin');
-var uploadFilterPhobos = document.querySelector('#upload-filter-phobos');
-var uploadFilterHeat = document.querySelector('#upload-filter-heat');
+//2.1 +ARIA
+
+var overlayClosePress = function(evt) {
+    if (evt.keyCode === ENTER_KEY_CODE) {
+        uploadFormCancel.setAttribute('aria-pressed', 'true');  
+    };    
+};
+
+uploadFormCancel.addEventListener('keydown', overlayClosePress);
+
+
+
+//3. Применение фильтра к изображению с использованием делегирования
+var filterImagePreview = document.querySelector('.filter-image-preview');
+var filterControlPanel = document.querySelector('.upload-filter-controls');
+var filterControls = filterControlPanel.querySelectorAll('input');
+var clickedElement;
 
 var cleanAllFilters = function() {
     filterImagePreview.classList.remove('filter-chrome', 'filter-sepia', 'filter-marvin', 'filter-phobos', 'filter-heat');
 };
-var addFilterChrome = function() {
-    filterImagePreview.classList.add('filter-chrome');
-};
-var addFilterSepia = function() {
-    filterImagePreview.classList.add('filter-sepia');
-};
-var addFilterMarvin = function() {
-    filterImagePreview.classList.add('filter-marvin');
-};
-var addFilterPhobos = function() {
-    filterImagePreview.classList.add('filter-phobos');
-};
-var addFilterHeat = function() {
-    filterImagePreview.classList.add('filter-heat');
+
+var filterAdd = function() {
+    var filterID = clickedElement.id;
+    var filterName = filterID.substr(7);
+    filterImagePreview.classList.add(filterName);
 };
 
-uploadFilterNone.addEventListener('click', cleanAllFilters);
+var filtrationOn = function() {
+        if (clickedElement.id.substr(7) != 'filter-none') {
+            filterAdd();
+        }
+};
 
-uploadFilterChrome.addEventListener('click', cleanAllFilters);
-uploadFilterChrome.addEventListener('click', addFilterChrome);
+var clickHandler = function(evt) {    
+    clickedElement = evt.currentTarget;
+    filtrationOn();
+};
 
-uploadFilterSepia.addEventListener('click', cleanAllFilters);
-uploadFilterSepia.addEventListener('click', addFilterSepia);
-
-uploadFilterMarvin.addEventListener('click', cleanAllFilters);
-uploadFilterMarvin.addEventListener('click', addFilterMarvin);
-
-uploadFilterPhobos.addEventListener('click', cleanAllFilters);
-uploadFilterPhobos.addEventListener('click', addFilterPhobos);
-
-uploadFilterHeat.addEventListener('click', cleanAllFilters);
-uploadFilterHeat.addEventListener('click', addFilterHeat);
+for (var i = 0; i < filterControls.length; i++) {
+    filterControls[i].addEventListener('click', cleanAllFilters);
+    filterControls[i].addEventListener('click', clickHandler);
+};
 
 
-//4. Применение фильтра к изображению
+
+//3.1. +ARIA
+var filterControlLabels = filterControlPanel.querySelectorAll('.upload-filter-label');
+var labelNumber;
+
+var filterAddFromKeyboard = function(labelNumber) {
+    var filterID = filterControls[labelNumber].id;
+    var filterName = filterID.substr(7);
+    filterImagePreview.classList.add(filterName);
+};
+
+var unCheckRadios = function() {
+    for (var i = 0; i < filterControlLabels.length; i++) {
+        filterControlLabels[i].setAttribute('aria-checked', 'false');
+        filterControls[i].removeAttribute('checked');
+    };
+};
+
+var checkRadios = function(labelNumber) {
+    filterControlLabels[labelNumber].setAttribute('aria-checked', 'true');
+    filterControls[labelNumber].setAttribute('checked', 'true');
+};
+
+var noFilters = function(evt) {
+    labelNumber = 0;
+    if (evt.keyCode === ENTER_KEY_CODE) {
+        cleanAllFilters();
+        unCheckRadios();
+        checkRadios(labelNumber);
+    };
+};
+
+var filterChromeOn = function(evt) {
+    labelNumber = 1;
+    if (evt.keyCode === ENTER_KEY_CODE) {
+        cleanAllFilters();
+        filterAddFromKeyboard(labelNumber);
+        unCheckRadios();
+        checkRadios(labelNumber);
+    };
+};
+
+var filterSepiaOn = function(evt) {
+    labelNumber = 2;
+    if (evt.keyCode === ENTER_KEY_CODE) {
+        cleanAllFilters();
+        filterAddFromKeyboard(labelNumber);
+        unCheckRadios();
+        checkRadios(labelNumber);
+    };
+};
+
+var filterMarvinOn = function(evt) {
+    labelNumber = 3;
+    if (evt.keyCode === ENTER_KEY_CODE) {
+        cleanAllFilters();
+        filterAddFromKeyboard(labelNumber);
+        unCheckRadios();
+        checkRadios(labelNumber);
+    };
+};
+
+var filterPhobosOn = function(evt) {
+    labelNumber = 4;
+    if (evt.keyCode === ENTER_KEY_CODE) {
+        cleanAllFilters();
+        filterAddFromKeyboard(labelNumber);
+        unCheckRadios();
+        checkRadios(labelNumber);
+    };
+};
+
+var filterHeatOn = function(evt) {
+    labelNumber = 5;
+    if (evt.keyCode === ENTER_KEY_CODE) {
+        cleanAllFilters();
+        filterAddFromKeyboard(labelNumber);
+        unCheckRadios();
+        checkRadios(labelNumber);
+    };
+};
+
+filterControlLabels[0].addEventListener('keydown', noFilters);
+filterControlLabels[1].addEventListener('keydown', filterChromeOn);
+filterControlLabels[2].addEventListener('keydown', filterSepiaOn);
+filterControlLabels[3].addEventListener('keydown', filterMarvinOn);
+filterControlLabels[4].addEventListener('keydown', filterPhobosOn);
+filterControlLabels[5].addEventListener('keydown', filterHeatOn);
+
+
+
+//4. Масштабирование изображения
 var uploadResizeControlsButtonDec = document.querySelector('.upload-resize-controls-button-dec');
 var uploadResizeControlsButtonInc = document.querySelector('.upload-resize-controls-button-inc');
 var uploadResizeControlsValue = document.querySelector('.upload-resize-controls-value');
