@@ -73,21 +73,7 @@ for (var i = 0; i < filterControls.length; i++) {
 //3.1. +ARIA
 
 var labelNumber;
-
-var unCheckRadios = function() {
-    for (var i = 0; i < filterControlLabels.length; i++) {
-        filterControlLabels[i].setAttribute('aria-checked', 'false');
-        filterControls[i].removeAttribute('checked');
-    };
-};
-
-var checkRadios = function(labelNumber) {
-    filterControlLabels[labelNumber].setAttribute('aria-checked', 'true');
-    filterControls[labelNumber].setAttribute('checked', 'true');
-};
-
 var filterControlLabels = filterControlPanel.querySelectorAll('.upload-filter-label');
-var labelNumber;
 
 var unCheckRadios = function() {
     for (var i = 0; i < filterControlLabels.length; i++) {
@@ -161,7 +147,6 @@ filterControlLabels[2].addEventListener('keydown', filterSepiaOn);
 filterControlLabels[3].addEventListener('keydown', filterMarvinOn);
 filterControlLabels[4].addEventListener('keydown', filterPhobosOn);
 filterControlLabels[5].addEventListener('keydown', filterHeatOn);
-
 
 
 
