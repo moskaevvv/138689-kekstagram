@@ -59,12 +59,16 @@ var clickedElement;
 
 var clickHandler = function(evt) {    
     clickedElement = evt.currentTarget;
+    filterID = clickedElement.id;
+    filterName = filterID.substr(7);
 };
 
 for (var i = 0; i < filterControls.length; i++) {
+    var filterID;
+    var filterName;
     filterControls[i].addEventListener('click', clickHandler);
     filterControls[i].addEventListener('click', function() {
-        initializeFilters(clickedElement);
+        initializeFilters(filterName);
     });
 };
 
@@ -90,7 +94,9 @@ var checkRadios = function(labelNumber) {
 var noFilters = function(evt) {
     labelNumber = 0;
     if (evt.keyCode === ENTER_KEY_CODE) {
-        initializeFilters(filterControls[labelNumber]);
+        var filterID = filterControls[labelNumber].id;
+        var filterName = filterID.substr(7);
+        initializeFilters(filterName);
         unCheckRadios();
         checkRadios(labelNumber);
     };
@@ -99,7 +105,9 @@ var noFilters = function(evt) {
 var filterChromeOn = function(evt) {
     labelNumber = 1;
     if (evt.keyCode === ENTER_KEY_CODE) {
-        initializeFilters(filterControls[labelNumber]);
+        var filterID = filterControls[labelNumber].id;
+        var filterName = filterID.substr(7);
+        initializeFilters(filterName);
         unCheckRadios();
         checkRadios(labelNumber);
     };
@@ -108,7 +116,9 @@ var filterChromeOn = function(evt) {
 var filterSepiaOn = function(evt) {
     labelNumber = 2;
     if (evt.keyCode === ENTER_KEY_CODE) {
-        initializeFilters(filterControls[labelNumber]);
+        var filterID = filterControls[labelNumber].id;
+        var filterName = filterID.substr(7);
+        initializeFilters(filterName);
         unCheckRadios();
         checkRadios(labelNumber);
     };
@@ -117,7 +127,9 @@ var filterSepiaOn = function(evt) {
 var filterMarvinOn = function(evt) {
     labelNumber = 3;
     if (evt.keyCode === ENTER_KEY_CODE) {
-        initializeFilters(filterControls[labelNumber]);
+        var filterID = filterControls[labelNumber].id;
+        var filterName = filterID.substr(7);
+        initializeFilters(filterName);
         unCheckRadios();
         checkRadios(labelNumber);
     };
@@ -126,7 +138,9 @@ var filterMarvinOn = function(evt) {
 var filterPhobosOn = function(evt) {
     labelNumber = 4;
     if (evt.keyCode === ENTER_KEY_CODE) {
-        initializeFilters(filterControls[labelNumber]);
+        var filterID = filterControls[labelNumber].id;
+        var filterName = filterID.substr(7);
+        initializeFilters(filterName);
         unCheckRadios();
         checkRadios(labelNumber);
     };
@@ -135,7 +149,9 @@ var filterPhobosOn = function(evt) {
 var filterHeatOn = function(evt) {
     labelNumber = 5;
     if (evt.keyCode === ENTER_KEY_CODE) {
-        initializeFilters(filterControls[labelNumber]);
+        var filterID = filterControls[labelNumber].id;
+        var filterName = filterID.substr(7);
+        initializeFilters(filterName);
         unCheckRadios();
         checkRadios(labelNumber);
     };
