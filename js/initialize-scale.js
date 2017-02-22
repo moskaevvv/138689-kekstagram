@@ -1,5 +1,8 @@
 'use strict';
 
+window.initializeScale = (function(){
+
+var filterImagePreview = document.querySelector('.filter-image-preview');
 var uploadResizeControlsButtonDec = document.querySelector('.upload-resize-controls-button-dec');
 var uploadResizeControlsButtonInc = document.querySelector('.upload-resize-controls-button-inc');
 var uploadResizeControlsValue = document.querySelector('.upload-resize-controls-value');
@@ -26,7 +29,7 @@ var imageSizeDown = function() {
     };
 };
 
-var createScale = function() {
+return function() {
     
     uploadResizeControlsValueNumber()
 
@@ -36,3 +39,5 @@ var createScale = function() {
     uploadResizeControlsButtonDec.addEventListener('click', imageSizeDown);
     
 };
+
+})();
