@@ -2,19 +2,20 @@
 
 var ENTER_KEY_CODE = 13;
 
+
+
+
+
+//1. Открытие-закрытие формы редактирования изображения
+
+var uploadFormToggle = (function() {
+    
 var uploadFileInput = document.querySelector('#upload-file');
 var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadOverlay = document.querySelector('.upload-overlay');
 var uploadFormCancel = document.querySelector('.upload-form-cancel');
 
-var filterImagePreview = document.querySelector('.filter-image-preview');
-var filterControlPanel = document.querySelector('.upload-filter-controls');
-var filterControls = filterControlPanel.querySelectorAll('input');
-var filterControlLabels = filterControlPanel.querySelectorAll('.upload-filter-label');
-
-
-
-//1. Показ формы кадрирования
+//1.1 Показ
 
 var uploadSelectImageClose = function() {
     uploadSelectImage.classList.add('invisible');
@@ -26,9 +27,7 @@ var uploadOverlayOpen = function() {
 uploadFileInput.addEventListener('change', uploadSelectImageClose);
 uploadFileInput.addEventListener('change', uploadOverlayOpen);
 
-
-
-//2. Закрытие формы кадрирования
+//1.2 Закрытие
 
 var uploadOverlayClose = function() {
     uploadOverlay.classList.add('invisible');
@@ -40,9 +39,7 @@ var uploadSelectImageOpen = function() {
 uploadFormCancel.addEventListener('click', uploadOverlayClose);
 uploadFormCancel.addEventListener('click', uploadSelectImageOpen);
 
-
-
-//2.1 +ARIA
+//1.3 +ARIA
 
 var overlayClosePress = function(evt) {
     if (evt.keyCode === ENTER_KEY_CODE) {
@@ -51,11 +48,24 @@ var overlayClosePress = function(evt) {
 };
 
 uploadFormCancel.addEventListener('keydown', overlayClosePress);
+    
+})();
 
 
 
-//3. Применение фильтра к изображению с использованием делегирования
+
+
+//2. Применения фильтров
+
+var filterExecution = (function() {
+    
+var filterControlPanel = document.querySelector('.upload-filter-controls');
+var filterControls = filterControlPanel.querySelectorAll('input');
+var filterControlLabels = filterControlPanel.querySelectorAll('.upload-filter-label');
+
 var clickedElement;
+    
+//2.1 Функция
 
 var clickHandler = function(evt) {    
     clickedElement = evt.currentTarget;
@@ -72,9 +82,7 @@ for (var i = 0; i < filterControls.length; i++) {
     });
 };
 
-
-
-//3.1. +ARIA
+//2.2 +ARIA
 
 var labelNumber;
 var filterControlLabels = filterControlPanel.querySelectorAll('.upload-filter-label');
@@ -163,9 +171,13 @@ filterControlLabels[2].addEventListener('keydown', filterSepiaOn);
 filterControlLabels[3].addEventListener('keydown', filterMarvinOn);
 filterControlLabels[4].addEventListener('keydown', filterPhobosOn);
 filterControlLabels[5].addEventListener('keydown', filterHeatOn);
+    
+})();
 
 
 
-//4. Масштабирование изображения
 
-createScale();
+
+//3. Масштабирование изображения
+
+initializeScale();

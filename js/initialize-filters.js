@@ -1,5 +1,9 @@
 'use strict';
 
+window.initializeFilters = (function() {
+    
+var filterImagePreview = document.querySelector('.filter-image-preview');
+
 var filterAdd;
 var filtrationOn;
 
@@ -7,7 +11,7 @@ var cleanAllFilters = function() {
     filterImagePreview.classList.remove('filter-chrome', 'filter-sepia', 'filter-marvin', 'filter-phobos', 'filter-heat');
     };
 
-var initializeFilters = function(thisFilter) {
+return function(thisFilter) {
     
     filterAdd = function() {
         filterImagePreview.classList.add(thisFilter);
@@ -23,3 +27,5 @@ var initializeFilters = function(thisFilter) {
     filtrationOn();
     
 };
+
+})();
