@@ -5,7 +5,6 @@ var ENTER_KEY_CODE = 13;
 
 
 
-
 //1. Открытие-закрытие формы редактирования изображения
 
 var uploadFormToggle = (function() {
@@ -62,6 +61,7 @@ var filterExecution = (function() {
 var filterControlPanel = document.querySelector('.upload-filter-controls');
 var filterControls = filterControlPanel.querySelectorAll('input');
 var filterControlLabels = filterControlPanel.querySelectorAll('.upload-filter-label');
+
 
 var clickedElement;
     

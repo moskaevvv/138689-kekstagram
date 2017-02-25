@@ -7,24 +7,20 @@ var filterImagePreview = document.querySelector('.filter-image-preview');
 var filterAdd;
 var filtrationOn;
 
-var cleanAllFilters = function() {
-    filterImagePreview.classList.remove('filter-chrome', 'filter-sepia', 'filter-marvin', 'filter-phobos', 'filter-heat');
-    };
-
 return function(thisFilter) {
     
     filterAdd = function() {
-        filterImagePreview.classList.add(thisFilter);
-    };
-    
-    filtrationOn = function() {
         if (thisFilter !== 'filter-none') {
-            filterAdd();
+            filterImagePreview.classList.add(thisFilter);
         }
+    };
+
+    var cleanAllFilters = function(filterAdd) {
+    filterImagePreview.classList.remove('filter-chrome', 'filter-sepia', 'filter-marvin', 'filter-phobos', 'filter-heat');
     };
     
     cleanAllFilters();
-    filtrationOn();
+     filterAdd();
     
 };
 
