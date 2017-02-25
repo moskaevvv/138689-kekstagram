@@ -1,6 +1,8 @@
 'use strict';
 
 var ENTER_KEY_CODE = 13;
+var ESCAPE_KEY_CODE = 27;
+var uploadFileInput = document.querySelector('#upload-file');
 
 
 
@@ -9,7 +11,7 @@ var ENTER_KEY_CODE = 13;
 
 var uploadFormToggle = (function() {
     
-var uploadFileInput = document.querySelector('#upload-file');
+
 var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadOverlay = document.querySelector('.upload-overlay');
 var uploadFormCancel = document.querySelector('.upload-form-cancel');
@@ -54,34 +56,44 @@ uploadFormCancel.addEventListener('keydown', overlayClosePress);
 
 
 
+
+
 //2. Применения фильтров
 
-var filterExecution = (function() {
+
+(function() {
+
+        window.filterControlPanel = document.querySelector('.upload-filter-controls');
+    window.filterControls = filterControlPanel.querySelectorAll('input');
+    var filterControlLabels = filterControlPanel.querySelectorAll('.upload-filter-label');
+    var filterImagePreview = document.querySelector('.filter-image-preview');
     
-var filterControlPanel = document.querySelector('.upload-filter-controls');
-var filterControls = filterControlPanel.querySelectorAll('input');
-var filterControlLabels = filterControlPanel.querySelectorAll('.upload-filter-label');
-
-
-var clickedElement;
+    var filterSwitcher = function(filterID) {
+        filterImagePreview.classList.remove('filter-chrome', 'filter-sepia', 'filter-marvin', 'filter-phobos', 'filter-heat');
+        if (filterID.substr(7) !== 'filter-none') {
+            filterImagePreview.classList.add(filterID.substr(7));
+        };
+    };
+    
+    var clickHandler = function(evt) {
+        var clickedElement;
+        clickedElement = evt.currentTarget;
+        filterID = clickedElement.id;
+    };
+    
     
 //2.1 Функция
 
-var clickHandler = function(evt) {    
-    clickedElement = evt.currentTarget;
-    filterID = clickedElement.id;
-    filterName = filterID.substr(7);
-};
-
 for (var i = 0; i < filterControls.length; i++) {
     var filterID;
-    var filterName;
-    filterControls[i].addEventListener('click', clickHandler);
+    filterControls[i].addEventListener('click', clickHandler); 
     filterControls[i].addEventListener('click', function() {
-        initializeFilters(filterName);
+        filterSwitcher(filterID);                               
     });
 };
 
+    
+    /*
 //2.2 +ARIA
 
 var labelNumber;
@@ -172,12 +184,29 @@ filterControlLabels[3].addEventListener('keydown', filterMarvinOn);
 filterControlLabels[4].addEventListener('keydown', filterPhobosOn);
 filterControlLabels[5].addEventListener('keydown', filterHeatOn);
     
+    */
+    
 })();
-
 
 
 
 
 //3. Масштабирование изображения
 
-initializeScale();
+(function () {
+    
+    var filterImagePreview = document.querySelector('.filter-image-preview');
+    var uploadResizeControls = document.querySelector('.upload-resize-controls');
+    var SCALE_STEP = 25;
+    var INITIAL_SCALE = 100;
+    
+    var adjustScale = function(scale) {
+        filterImagePreview.style.transform = 'scale(' + scale() / 100 + ')';
+    };
+    
+    uploadFileInput.addEventListener('change', function() {
+        initializeScale(filterImagePreview, SCALE_STEP, INITIAL_SCALE, adjustScale, uploadResizeControls);
+    });
+    
+})();
+
