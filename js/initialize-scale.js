@@ -3,40 +3,51 @@
 window.initializeScale = (function(){
 
 var filterImagePreview = document.querySelector('.filter-image-preview');
-var uploadResizeControlsButtonDec = document.querySelector('.upload-resize-controls-button-dec');
-var uploadResizeControlsButtonInc = document.querySelector('.upload-resize-controls-button-inc');
-var uploadResizeControlsValue = document.querySelector('.upload-resize-controls-value');
+var uploadResizeControls = document.querySelector('.upload-resize-controls');
+var sizeControlButton = uploadResizeControls.querySelectorAll('button');
+var sizeControlsInput = uploadResizeControls.querySelector('input');
+var SCALE_STEP = 25;
+var INITIAL_SCALE = 100;
 
-var uploadResizeControlsValueNumber = function() {
-    return parseInt(uploadResizeControlsValue.value);
+var scale = function() {
+    return parseInt(sizeControlsInput.value);
 };
 
-var imageSizeUp = function() {
-     if (uploadResizeControlsValueNumber() <= 75) {
-         uploadResizeControlsValue.value = uploadResizeControlsValueNumber() + 25 + '%';
-         if (uploadResizeControlsValueNumber() < 100) {
-             filterImagePreview.style.transform = 'scale(.' + uploadResizeControlsValueNumber() + ')';
-         } else {
-             filterImagePreview.style.transform = 'scale(1)';
-         }
-     };
+var adjustScale = function() {
+    filterImagePreview.style.transform = 'scale(' + scale() / 100 + ')';
 };
 
-var imageSizeDown = function() {
-    if (uploadResizeControlsValueNumber() >= 25) {
-        uploadResizeControlsValue.value = uploadResizeControlsValueNumber() - 25 + '%';
-        filterImagePreview.style.transform = 'scale(.' + uploadResizeControlsValueNumber() + ')';
+var zoomUp = function(adjustScale) {
+    if (scale() <= 100-SCALE_STEP) {
+        sizeControlsInput.value = scale() + SCALE_STEP + '%';
+    };
+    if (typeof adjustScale === 'function') {
+        adjustScale();
     };
 };
-
+    
+var zoomDown = function(adjustScale) {
+    if (scale() >= SCALE_STEP) {
+        sizeControlsInput.value = scale() - SCALE_STEP + '%';
+    };
+    if (typeof adjustScale === 'function') {
+        adjustScale();
+    };
+};
+    
 return function() {
     
-    uploadResizeControlsValueNumber()
+    scale();
+    
+    adjustScale();
 
-    filterImagePreview.style.transform = 'scale(.' + uploadResizeControlsValueNumber() + ')';
-
-    uploadResizeControlsButtonInc.addEventListener('click', imageSizeUp);
-    uploadResizeControlsButtonDec.addEventListener('click', imageSizeDown);
+    sizeControlButton[1].addEventListener('click', function() {
+        zoomUp(adjustScale);
+    });
+    
+    sizeControlButton[0].addEventListener('click', function() {
+        zoomDown(adjustScale);
+    });
     
 };
 
