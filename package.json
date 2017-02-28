@@ -18,7 +18,7 @@
   },
   "dependencies": {},
   "scripts": {
-    "test": "eslint js/ --fix"
+    "test": "eslint js/"
   },
   "engines": {
     "node": "^6.9"

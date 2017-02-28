@@ -10,10 +10,10 @@ window.initializeScale = (function () {
     sizeControlsInput.value = INITIAL_SCALE;
 
     var scale = function () {
-      return parseInt(sizeControlsInput.value);
+      return parseFloat(sizeControlsInput.value);
     };
 
-    var zoomUp = function (adjustScale) {
+    var zoomUp = function () {
       if (scale() <= 100 - SCALE_STEP) {
         sizeControlsInput.value = scale() + SCALE_STEP + '%';
       }
@@ -22,7 +22,7 @@ window.initializeScale = (function () {
       }
     };
 
-    var zoomDown = function (adjustScale) {
+    var zoomDown = function () {
       if (scale() > SCALE_STEP) {
         sizeControlsInput.value = scale() - SCALE_STEP + '%';
       }

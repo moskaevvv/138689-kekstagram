@@ -9,13 +9,13 @@ window.showGallery = (function () {
 
 
   var keyboardCloseGallery = function (event) {
-    if (event.keyCode && event.keyCode === ENTER_KEY_CODE) {
+    if (event.keyCode && event.keyCode === window.ENTER_KEY_CODE) {
       galleryOff(event);
     }
   };
 
   var escCloseGallery = function (event) {
-    if (event.keyCode && event.keyCode === ESCAPE_KEY_CODE) {
+    if (event.keyCode && event.keyCode === window.ESCAPE_KEY_CODE) {
       galleryOff(event);
     }
   };

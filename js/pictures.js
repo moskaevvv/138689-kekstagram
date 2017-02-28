@@ -20,7 +20,7 @@
       };
 
       var keyboardOpenGallery = function (event) {
-        if (event.keyCode && event.keyCode === ENTER_KEY_CODE) {
+        if (event.keyCode && event.keyCode === window.ENTER_KEY_CODE) {
           openGallery(event);
         }
       };
