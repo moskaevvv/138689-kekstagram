@@ -23,7 +23,7 @@ window.initializeScale = (function() {
         };
         
         var zoomDown = function(adjustScale) {
-            if (scale() >= SCALE_STEP) {
+            if (scale() > SCALE_STEP) {
                 sizeControlsInput.value = scale() - SCALE_STEP + '%';
             };
             if (typeof adjustScale === 'function') {
