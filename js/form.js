@@ -1,13 +1,14 @@
 'use strict';
 
-var ENTER_KEY_CODE = 13;
-var ESCAPE_KEY_CODE = 27;
+window.ENTER_KEY_CODE = 13;
+window.ESCAPE_KEY_CODE = 27;
+
 var uploadFileInput = document.querySelector('#upload-file');
 
 
 // 1. Открытие-закрытие формы редактирования изображения
 
-var uploadFormToggle = (function () {
+(function () {
 
 
   var uploadSelectImage = document.querySelector('#upload-select-image');
@@ -41,7 +42,7 @@ var uploadFormToggle = (function () {
 // 1.3 +ARIA
 
   var overlayClosePress = function (evt) {
-    if (evt.keyCode === ENTER_KEY_CODE) {
+    if (evt.keyCode === window.ENTER_KEY_CODE) {
       uploadFormCancel.setAttribute('aria-pressed', 'true');
     }
   };
@@ -59,7 +60,6 @@ var uploadFormToggle = (function () {
   var filterControlPanel = document.querySelector('.upload-filter-controls');
   var filterControls = filterControlPanel.querySelectorAll('input');
   var filterImagePreview = document.querySelector('.filter-image-preview');
-  var filterID;
 
     // callback
   var filterSwitcher = function (filterID) {
@@ -95,7 +95,7 @@ var uploadFormToggle = (function () {
   };
 
   uploadFileInput.addEventListener('change', function () {
-    initializeScale(filterImagePreview, SCALE_STEP, INITIAL_SCALE, adjustScale, uploadResizeControls);
+    window.initializeScale(filterImagePreview, SCALE_STEP, INITIAL_SCALE, adjustScale, uploadResizeControls);
   });
 
 })();

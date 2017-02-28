@@ -2,17 +2,13 @@
 
 window.initializeFilters = (function () {
 
-
   var filterID;
-  var filterControls;
-  var filterControlLabels;
-
 
   return {
 
     mouseMethod: function (filterControls, filterSwitcher) {
 
-      var clickHandlerAndCallback = function (evt, filterSwitcher) {
+      var clickHandlerAndCallback = function (evt) {
 
         var clickedElement;
         clickedElement = evt.currentTarget;
@@ -25,7 +21,6 @@ window.initializeFilters = (function () {
 
       for (var i = 0; i < filterControls.length; i++) {
         filterControls[i].onclick = function (event) {
-          event = event || window.event;
           clickHandlerAndCallback(event, filterSwitcher);
         };
       }
@@ -46,7 +41,7 @@ window.initializeFilters = (function () {
       };
 
       var actions = function (i, evt) {
-        if (evt.keyCode === ENTER_KEY_CODE) {
+        if (evt.keyCode === window.ENTER_KEY_CODE) {
           filterID = filterControls[i].id;
           unCheckRadios();
           checkRadios(i);
@@ -58,7 +53,6 @@ window.initializeFilters = (function () {
 
       var enterAction = function (i) {
         filterControlLabels[i].onkeypress = function (event) {
-          event = event || window.event;
           actions(i, event);
         };
       };
