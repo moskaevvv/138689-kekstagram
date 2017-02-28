@@ -24,9 +24,10 @@ window.initializeFilters = (function() {
         };
         
         for (var i = 0; i < filterControls.length; i++) {
-            filterControls[i].addEventListener('click', function() {
-                clickHandlerAndCallback(event, filterSwitcher);                            
-            });
+            filterControls[i].onclick = function(event) {
+                event = event || window.event;
+                clickHandlerAndCallback(event, filterSwitcher);                   
+            };
         };
     },
 
@@ -56,9 +57,10 @@ window.initializeFilters = (function() {
             };
             
             var enterAction = function(i) {
-                filterControlLabels[i].addEventListener('keydown', function() {
+                filterControlLabels[i].onkeypress = function(event) {
+                    event = event || window.event;
                     actions(i, event);
-                });
+                };
             };
             
             for (var i = 0; i < filterControlLabels.length; i++) {
