@@ -32,6 +32,21 @@ window.initializeScale = (function () {
     };
 
     adjustScale(scale);
+      
+      
+    var noZoomUp = function() {
+        sizeControlButton[1].removeEventListener('click', function () {
+          zoomUp(adjustScale);
+      });
+    };
+      
+
+    var noZoomDown = function() {
+        sizeControlButton[1].removeEventListener('click', function () {
+          zoomDown(adjustScale);
+      });
+    };
+      
 
     sizeControlButton[1].addEventListener('click', function () {
       zoomUp(adjustScale);

@@ -26,6 +26,7 @@ var uploadFileInput = document.querySelector('#upload-file');
 
   uploadFileInput.addEventListener('change', uploadSelectImageClose);
   uploadFileInput.addEventListener('change', uploadOverlayOpen);
+    
 
 // 1.2 Закрытие
 
@@ -93,8 +94,8 @@ var uploadFileInput = document.querySelector('#upload-file');
   var adjustScale = function (scale) {
     filterImagePreview.style.transform = 'scale(' + scale() / 100 + ')';
   };
-
-  uploadFileInput.addEventListener('change', function () {
+    
+    uploadFileInput.addEventListener('change', function () {
     window.initializeScale(filterImagePreview, SCALE_STEP, INITIAL_SCALE, adjustScale, uploadResizeControls);
   });
 
