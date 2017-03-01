@@ -49,12 +49,12 @@
     pictureFiltersRow.classList.remove('hidden');
   };
 
+  var getRandomElement = function (elements) {
+    return Math.floor(Math.random() * elements.length);
+  };
+
 
   var getNewPictures = function (array) {
-
-    var getRandomElement = function (elements) {
-      return Math.floor(Math.random() * elements.length);
-    };
 
     var tempArray = array.slice();
     sortedPictures = [];
@@ -73,11 +73,7 @@
     var tempArray = array.slice();
 
     tempArray.sort(function (a, b) {
-      if (a.comments.length < b.comments.length) {
-        return 1;
-      } else {
-        return -1;
-      }
+      return b.comments.length - a.comments.length;
     });
 
     sortedPictures = tempArray;
@@ -85,7 +81,7 @@
   };
 
 
-  var picuresFiltrationOn = function () {
+  var filterAllPictures = function () {
     for (var i = 0; i < filterRowItems.length; i++) {
       filterRowItems[i].onclick = function (event) {
 
@@ -111,7 +107,7 @@
   var onLoad = function (event) {
     pictures = event.target.response;
     showPicturesFilter();
-    picuresFiltrationOn();
+    filterAllPictures();
     showAllPictures(pictures);
   };
 

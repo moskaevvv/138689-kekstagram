@@ -1,7 +1,7 @@
 'use strict';
 
 window.load = (function () {
-  return function (DATA_URL, onLoad) {
+  return function (dataUrl, onLoad) {
 
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -12,7 +12,7 @@ window.load = (function () {
       }
     });
 
-    xhr.open('GET', DATA_URL);
+    xhr.open('GET', dataUrl);
     xhr.send();
   };
 })();

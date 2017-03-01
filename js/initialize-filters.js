@@ -60,7 +60,7 @@ window.initializeFilters = (function () {
       for (var i = 0; i < filterControlLabels.length; i++) {
         enterAction(i);
       }
-    },
+    }
 
   };
 

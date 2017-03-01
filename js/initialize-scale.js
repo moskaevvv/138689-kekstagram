@@ -2,20 +2,20 @@
 
 window.initializeScale = (function () {
 
-  return function (filterImagePreview, SCALE_STEP, INITIAL_SCALE, adjustScale, uploadResizeControls) {
+  return function (filterImagePreview, scaleStep, initialScale, adjustScale, uploadResizeControls) {
 
     var sizeControlButton = uploadResizeControls.querySelectorAll('button');
     var sizeControlsInput = uploadResizeControls.querySelector('input');
 
-    sizeControlsInput.value = INITIAL_SCALE;
+    sizeControlsInput.value = initialScale;
 
     var scale = function () {
       return parseFloat(sizeControlsInput.value);
     };
 
     var zoomUp = function () {
-      if (scale() <= 100 - SCALE_STEP) {
-        sizeControlsInput.value = scale() + SCALE_STEP + '%';
+      if (scale() <= 100 - scaleStep) {
+        sizeControlsInput.value = scale() + scaleStep + '%';
       }
       if (typeof adjustScale === 'function') {
         adjustScale(scale);
@@ -23,8 +23,8 @@ window.initializeScale = (function () {
     };
 
     var zoomDown = function () {
-      if (scale() > SCALE_STEP) {
-        sizeControlsInput.value = scale() - SCALE_STEP + '%';
+      if (scale() > scaleStep) {
+        sizeControlsInput.value = scale() - scaleStep + '%';
       }
       if (typeof adjustScale === 'function') {
         adjustScale(scale);
@@ -32,28 +32,14 @@ window.initializeScale = (function () {
     };
 
     adjustScale(scale);
-      
-      
-    var noZoomUp = function() {
-        sizeControlButton[1].removeEventListener('click', function () {
-          zoomUp(adjustScale);
-      });
-    };
-      
 
-    var noZoomDown = function() {
-        sizeControlButton[1].removeEventListener('click', function () {
-          zoomDown(adjustScale);
-      });
-    };
-      
 
     sizeControlButton[1].addEventListener('click', function () {
-      zoomUp(adjustScale);
+      zoomUp();
     });
 
     sizeControlButton[0].addEventListener('click', function () {
-      zoomDown(adjustScale);
+      zoomDown();
     });
 
   };

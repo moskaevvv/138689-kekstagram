@@ -8,32 +8,36 @@ window.showGallery = (function () {
   var commentsCount = galleryOverlay.querySelector('.comments-count');
 
 
-  var keyboardCloseGallery = function (event) {
+  var enterCloseGallery = function (event) {
     if (event.keyCode && event.keyCode === window.ENTER_KEY_CODE) {
-      galleryOff(event);
+      hideGallery(event);
     }
   };
+
 
   var escCloseGallery = function (event) {
     if (event.keyCode && event.keyCode === window.ESCAPE_KEY_CODE) {
-      galleryOff(event);
+      hideGallery(event);
     }
   };
 
 
-  var galleryOff = function () {
-    galleryOverlay.classList.toggle('invisible', true);
-    overlayClose.removeEventListener('click', galleryOff);
+  var hideGallery = function () {
+    galleryOverlay.classList.add('invisible');
+    overlayClose.removeEventListener('click', hideGallery);
+    overlayClose.removeEventListener('click', enterCloseGallery);
+    overlayClose.removeEventListener('click', escCloseGallery);
   };
 
+
   return function (data) {
-    overlayClose.addEventListener('click', galleryOff);
+    overlayClose.addEventListener('click', hideGallery);
     galleryOverlay.classList.toggle('invisible', false);
     overlayImg.src = data.url;
     likeCount.textContent = data.likes;
     commentsCount.textContent = data.comments.length;
     document.addEventListener('keydown', escCloseGallery);
-    overlayClose.addEventListener('keydown', keyboardCloseGallery);
+    overlayClose.addEventListener('keydown', enterCloseGallery);
     overlayClose.focus();
   };
 })();
